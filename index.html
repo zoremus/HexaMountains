@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hex Grid Playground</title>
+  </head>
+  <body>
+    <div id="app">
+      <aside class="panel">
+        <h1>Hex Grid Playground</h1>
+
+        <label class="field">
+          <span>Hexes Per Side</span>
+          <input id="side-length" type="range" min="2" max="100" value="50" />
+          <output id="side-length-value">50</output>
+        </label>
+
+        <label class="field">
+          <span>Grid Size</span>
+          <input id="grid-size-scale" type="range" min="0" max="2" step="0.01" value="1" />
+          <output id="grid-size-scale-value">1.00</output>
+        </label>
+
+        <label class="field">
+          <span>Hexagon Grid Radius</span>
+          <input id="grid-radius-km" type="range" min="1" max="15" step="1" value="10" />
+          <output id="grid-radius-km-value">10 km</output>
+        </label>
+
+        <label class="field">
+          <span>Height Multiplier</span>
+          <input id="height-multiplier" type="range" min="1" max="50" step="0.1" value="1" />
+          <output id="height-multiplier-value">1.0</output>
+        </label>
+
+        <label class="field field-toggle">
+          <span>Hiking Trails</span>
+          <input id="show-hiking-trails" type="checkbox" checked />
+        </label>
+
+        <label class="field field-toggle">
+          <span>Roads</span>
+          <input id="show-roads" type="checkbox" checked />
+        </label>
+
+        <dl class="stats">
+          <div>
+            <dt>Center Location</dt>
+            <dd id="center-location">0.0 km, 0.0 km</dd>
+          </div>
+          <div>
+            <dt>Total Hexes</dt>
+            <dd id="hex-count">-</dd>
+          </div>
+          <div>
+            <dt>Rendered Hex Radius</dt>
+            <dd id="rendered-radius">-</dd>
+          </div>
+          <div>
+            <dt>Sample Hex Radius</dt>
+            <dd id="sample-radius-km">-</dd>
+          </div>
+        </dl>
+      </aside>
+
+      <main id="viewport"></main>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
