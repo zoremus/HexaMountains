@@ -31,10 +31,22 @@ https://backdrifting.net/post/064_hex_grids
 ## Run
 
 ```bash
-cd hexgrid-playground
 npm install
 npm run dev
 ```
+
+## Deploy to GitHub Pages
+
+This repo is configured to deploy automatically to GitHub Pages on pushes to `main`.
+
+The Vite `base` path is set to `/HexaMountains/`, so the GitHub repository name must be `HexaMountains`. If the repository name is different, update [`vite.config.js`](./vite.config.js) to match it.
+
+In the GitHub repository settings:
+
+- open `Settings -> Pages`
+- set `Source` to `GitHub Actions`
+
+After that, push to `main` and GitHub will build and publish the contents of `dist/`.
 
 ## Current parameter meaning
 
