@@ -3,35 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hex Grid Playground</title>
+    <title>HexaMountains</title>
   </head>
   <body>
     <div id="app">
       <aside class="panel">
-        <h1>Hex Grid Playground</h1>
+        <h1>HexaMountains</h1>
+        <p class="subtitle">High Tatras</p>
 
         <label class="field">
-          <span>Hexes Per Side</span>
+          <span class="field-head">
+            <span>Hexes Per Side</span>
+            <output id="side-length-value">50</output>
+          </span>
           <input id="side-length" type="range" min="2" max="100" value="50" />
-          <output id="side-length-value">50</output>
         </label>
 
         <label class="field">
-          <span>Grid Size</span>
+          <span class="field-head">
+            <span>Grid Size</span>
+            <output id="grid-size-scale-value">1.00</output>
+          </span>
           <input id="grid-size-scale" type="range" min="0" max="2" step="0.01" value="1" />
-          <output id="grid-size-scale-value">1.00</output>
         </label>
 
         <label class="field">
-          <span>Hexagon Grid Radius</span>
+          <span class="field-head">
+            <span>Hexagon Grid Radius</span>
+            <output id="grid-radius-km-value">10 km</output>
+          </span>
           <input id="grid-radius-km" type="range" min="1" max="15" step="1" value="10" />
-          <output id="grid-radius-km-value">10 km</output>
         </label>
 
         <label class="field">
-          <span>Height Multiplier</span>
+          <span class="field-head">
+            <span>Height Multiplier</span>
+            <output id="height-multiplier-value">1.0</output>
+          </span>
           <input id="height-multiplier" type="range" min="1" max="50" step="0.1" value="1" />
-          <output id="height-multiplier-value">1.0</output>
         </label>
 
         <label class="field field-toggle">
@@ -43,6 +52,64 @@
           <span>Roads</span>
           <input id="show-roads" type="checkbox" checked />
         </label>
+
+        <section class="controls-guide" aria-label="Mouse controls">
+          <h2>Controls</h2>
+
+          <div class="control-row">
+            <div class="control-icons" aria-hidden="true">
+              <span class="mouse-chip">LMB</span>
+            </div>
+            <div class="control-copy">
+              <strong>Rotate View</strong>
+              <span>Left mouse button drag</span>
+            </div>
+          </div>
+
+          <div class="control-row">
+            <div class="control-icons" aria-hidden="true">
+              <span class="mouse-chip">Scroll</span>
+            </div>
+            <div class="control-copy">
+              <strong>Zoom Camera</strong>
+              <span>Mouse wheel</span>
+            </div>
+          </div>
+
+          <div class="control-row">
+            <div class="control-icons" aria-hidden="true">
+              <span class="mouse-chip">RMB</span>
+            </div>
+            <div class="control-copy">
+              <strong>Pan View</strong>
+              <span>Right mouse button drag</span>
+            </div>
+          </div>
+
+          <div class="control-row">
+            <div class="control-icons" aria-hidden="true">
+              <span class="key-chip">Ctrl</span>
+              <span class="combo-plus">+</span>
+              <span class="mouse-chip">Scroll</span>
+            </div>
+            <div class="control-copy">
+              <strong>Zoom Grid Radius</strong>
+              <span>Adjust the sampled grid extent</span>
+            </div>
+          </div>
+
+          <div class="control-row">
+            <div class="control-icons" aria-hidden="true">
+              <span class="key-chip">Ctrl</span>
+              <span class="combo-plus">+</span>
+              <span class="mouse-chip">RMB</span>
+            </div>
+            <div class="control-copy">
+              <strong>Pan Grid Location</strong>
+              <span>Move the sampling center over the terrain</span>
+            </div>
+          </div>
+        </section>
 
         <dl class="stats">
           <div>

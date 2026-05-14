@@ -60,7 +60,7 @@ Project data in `public/` is deployed with the site. Runtime fetches are resolve
 - `Hexagon Grid Radius` is the center-to-center distance in kilometers from the middle hex to the outermost ring hexes
 - from that, the app derives a small-hex radius in kilometers
 - this sampling scale does not affect current rendered geometry
-- hold `Shift + right mouse drag` to move the sampling center in kilometers relative to the center hex
+- hold `Ctrl + right mouse drag` to move the sampling center in kilometers relative to the center hex
 - elevation is sampled from a `25.6 km x 25.6 km` 16-bit PNG
 - the file is always loaded from `public/elevation/elevation_mosaic.png`
 - landcover color is sampled from a `25.6 km x 25.6 km` PNG

@@ -139,7 +139,7 @@ async function handleControlsChanged(options) {
 }
 
 function beginSampleDrag(event) {
-  if (!(event.shiftKey && event.button === 2)) {
+  if (!(event.ctrlKey && event.button === 2)) {
     return;
   }
 
@@ -186,8 +186,8 @@ function endSampleDrag() {
   void handleControlsChanged();
 }
 
-function handleShiftWheel(event) {
-  if (!event.shiftKey) {
+function handleCtrlWheel(event) {
+  if (!event.ctrlKey) {
     return;
   }
 
@@ -231,12 +231,12 @@ handleControlsChanged().catch((error) => {
 });
 
 renderer.domElement.addEventListener("contextmenu", (event) => {
-  if (event.shiftKey) {
+  if (event.ctrlKey) {
     event.preventDefault();
   }
 });
 renderer.domElement.addEventListener("mousedown", beginSampleDrag);
-renderer.domElement.addEventListener("wheel", handleShiftWheel, { passive: false, capture: true });
+renderer.domElement.addEventListener("wheel", handleCtrlWheel, { passive: false, capture: true });
 window.addEventListener("mousemove", continueSampleDrag);
 window.addEventListener("mouseup", endSampleDrag);
 
