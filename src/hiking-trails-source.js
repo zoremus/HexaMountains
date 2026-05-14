@@ -1,4 +1,6 @@
-const DEFAULT_HIKING_TRAILS_URL = "/hiking/hiking_trails_raw.json";
+import { resolveAssetUrl } from "./asset-url.js";
+
+const DEFAULT_HIKING_TRAILS_URL = resolveAssetUrl("hiking/hiking_trails_raw.json");
 const MAP_CENTER_LAT = 49.185;
 const MAP_CENTER_LON = 20.111;
 const SUPPORTED_COLORS = new Set(["red", "blue", "green", "yellow"]);

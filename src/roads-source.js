@@ -1,4 +1,6 @@
-const DEFAULT_ROADS_URL = "/roads/roads_raw.json";
+import { resolveAssetUrl } from "./asset-url.js";
+
+const DEFAULT_ROADS_URL = resolveAssetUrl("roads/roads_raw.json");
 const MAP_CENTER_LAT = 49.185;
 const MAP_CENTER_LON = 20.111;
 const ROAD_COLOR = { r: 12, g: 12, b: 12 };

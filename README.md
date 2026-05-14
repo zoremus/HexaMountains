@@ -48,6 +48,8 @@ In the GitHub repository settings:
 
 After that, push to `main` and GitHub will build and publish the contents of `dist/`.
 
+Project data in `public/` is deployed with the site. Runtime fetches are resolved through Vite's base URL so the elevation, landcover, hiking, and road assets load correctly from the GitHub Pages subpath.
+
 ## Current parameter meaning
 
 - the grid layout defines the maximum available hex footprint

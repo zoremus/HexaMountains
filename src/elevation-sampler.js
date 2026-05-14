@@ -1,6 +1,7 @@
 import { decode } from "fast-png";
+import { resolveAssetUrl } from "./asset-url.js";
 
-const DEFAULT_ELEVATION_URL = "/elevation/elevation_mosaic.png";
+const DEFAULT_ELEVATION_URL = resolveAssetUrl("elevation/elevation_mosaic.png");
 const ELEVATION_IMAGE_SIZE_KM = 25.6;
 const ELEVATION_IMAGE_HALF_SIZE_KM = ELEVATION_IMAGE_SIZE_KM / 2;
 const MISSING_ELEVATION_THRESHOLD = 10000;

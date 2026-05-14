@@ -1,4 +1,6 @@
-const DEFAULT_HIKING_SEGMENTS_URL = "/hiking/hiking_trail_segments.csv";
+import { resolveAssetUrl } from "./asset-url.js";
+
+const DEFAULT_HIKING_SEGMENTS_URL = resolveAssetUrl("hiking/hiking_trail_segments.csv");
 const SUPPORTED_COLORS = new Set(["red", "blue", "green", "yellow"]);
 const COLOR_MAP = {
   red: { r: 220, g: 40, b: 40 },

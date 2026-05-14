@@ -1,6 +1,7 @@
 import { decode } from "fast-png";
+import { resolveAssetUrl } from "./asset-url.js";
 
-const DEFAULT_LANDCOVER_URL = "/landcover/landcover_mosaic.png";
+const DEFAULT_LANDCOVER_URL = resolveAssetUrl("landcover/landcover_mosaic.png");
 const LANDCOVER_IMAGE_SIZE_KM = 25.6;
 const LANDCOVER_IMAGE_HALF_SIZE_KM = LANDCOVER_IMAGE_SIZE_KM / 2;
 
