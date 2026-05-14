@@ -24,6 +24,7 @@ const sourceCache = createSourceCache();
 const pointerTools = createPointerTools({ renderer, camera, gridGroup });
 const sampleOffsetKm = { x: 0, y: 0 };
 let sampleDragState = null;
+let gridBuildToken = 0;
 
 function getSamplingKmPerSceneUnit() {
   const { sideLength, gridRadiusKm, gridSizeScale } = getGridSettings(controlsUi);
@@ -41,18 +42,9 @@ function getCurrentSampleHexRadiusKm() {
   return deriveSampleHexRadiusKm(sideLength, gridRadiusKm);
 }
 
-async function buildGridContent({
-  showHikingTrails = shouldShowHikingTrails(controlsUi),
-  showRoads = shouldShowRoads(controlsUi),
-} = {}) {
+async function buildTerrainContent() {
   const elevationSource = await sourceCache.ensureElevationLoaded();
   const landcoverSource = await sourceCache.ensureLandcoverLoaded();
-  const hikingTrailsSource = showHikingTrails
-    ? await sourceCache.ensureHikingTrailsLoaded()
-    : null;
-  const roadsSource = showRoads
-    ? await sourceCache.ensureRoadsLoaded()
-    : null;
 
   const terrain = buildTerrainMesh({
     ...getGridSettings(controlsUi),
@@ -72,6 +64,7 @@ async function buildGridContent({
 
   const overlayContext = {
     renderer,
+    contentGroup,
     layoutHexRadius: terrain.layoutHexRadius,
     sampleHexRadiusKm: terrain.sampleHexRadiusKm,
     renderedHexCenterMap: terrain.renderedHexCenterMap,
@@ -81,32 +74,63 @@ async function buildGridContent({
     elevationSource,
   };
 
-  if (hikingTrailsSource) {
-    contentGroup.add(
-      buildPolylineOverlay({
-        ...overlayContext,
-        polylines: hikingTrailsSource.polylines,
-        style: HIKING_TRAIL_STYLE,
-      }),
-    );
+  return overlayContext;
+}
+
+async function attachOptionalOverlays(overlayContext, {
+  showHikingTrails = shouldShowHikingTrails(controlsUi),
+  showRoads = shouldShowRoads(controlsUi),
+} = {}, token) {
+  const overlayGroups = [];
+
+  if (showHikingTrails) {
+    try {
+      const hikingTrailsSource = await sourceCache.ensureHikingTrailsLoaded();
+      overlayGroups.push(
+        buildPolylineOverlay({
+          ...overlayContext,
+          polylines: hikingTrailsSource.polylines,
+          style: HIKING_TRAIL_STYLE,
+        }),
+      );
+    } catch (error) {
+      console.error("Failed to load hiking trails overlay", error);
+    }
   }
 
-  if (roadsSource) {
-    contentGroup.add(
-      buildPolylineOverlay({
-        ...overlayContext,
-        polylines: roadsSource.polylines,
-        style: ROAD_STYLE,
-      }),
-    );
+  if (showRoads) {
+    try {
+      const roadsSource = await sourceCache.ensureRoadsLoaded();
+      overlayGroups.push(
+        buildPolylineOverlay({
+          ...overlayContext,
+          polylines: roadsSource.polylines,
+          style: ROAD_STYLE,
+        }),
+      );
+    } catch (error) {
+      console.error("Failed to load roads overlay", error);
+    }
   }
 
-  return contentGroup;
+  if (token !== gridBuildToken) {
+    return;
+  }
+
+  for (const overlayGroup of overlayGroups) {
+    overlayContext.contentGroup.add(overlayGroup);
+  }
 }
 
 async function regenerateGrid(options) {
-  const content = await buildGridContent(options);
-  replaceGrid(gridGroup, content);
+  const token = ++gridBuildToken;
+  const overlayContext = await buildTerrainContent();
+  if (token !== gridBuildToken) {
+    return;
+  }
+
+  replaceGrid(gridGroup, overlayContext.contentGroup);
+  void attachOptionalOverlays(overlayContext, options, token);
 }
 
 async function handleControlsChanged(options) {
